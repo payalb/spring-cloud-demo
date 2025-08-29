@@ -1,0 +1,41 @@
+docker run -d --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -e PGDATA=/var/lib/postgresql/data/pgdata -v /custom/mount:/var/lib/postgresql/data postgres
+
+docker logs -f som-postgres
+
+docker network ls
+
+bridge: default: outward traffic: no container to container networking
+
+host: visible to outside world
+
+docker network create my-network 
+
+
+docker compose up --build
+
+Ways to Force a New Image Every Time
+1. Use --build option (most common)
+docker compose up --build
+
+
+Tells Compose: always rebuild before starting containers.
+
+If you don’t use --build, it may reuse the existing image.
+
+2. Use --force-recreate
+docker compose up --build --force-recreate
+
+
+Rebuilds the image and forces containers to be recreated, even if nothing changed.
+
+3. Disable Cache During Build
+
+If you want to ignore Docker’s build cache completely:
+
+docker compose build --no-cache
+docker compose up
+
+
+or in one step:
+
+docker compose up --build --force-recreate --no-deps --remove-orphans
